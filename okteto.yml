@@ -7,10 +7,18 @@ volumes:
   - /root/.cache/go-build/  # persist go build cache
   - /root/.vscode-server    # persist vscode extensions
 securityContext:
-  capabilities:
-    add:
-    - SYS_PTRACE            # required by the go debugger
+  fsGroup: 100
+  # capabilities:
+  #   add:
+  #   - SYS_PTRACE            # required by the go debugger
 forward:
   - 8080:8080
 persistentVolume:
   enabled: true
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "250m"
+  limits:
+    memory: "128Mi"
+    cpu: "500m"
